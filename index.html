@@ -1,1 +1,117 @@
-<!DOCTYPE html><html><head><title>Demo</title></head><body><h1>Demo</h1></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cyberpunk Space Parallax</title>
+
+  <!-- Fonts / Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/1b7b2f5b7c.js" crossorigin="anonymous"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/ScrollTrigger.min.js"></script>
+
+  <!-- tsParticles (particles) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles"></script>
+
+  <!-- Three.js for grid floor -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/examples/js/controls/OrbitControls.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Three.js canvas (grid floor) -->
+  <canvas id="three-canvas" aria-hidden="true"></canvas>
+
+  <!-- Particle layer -->
+  <div id="particles-layer"></div>
+
+  <!-- Parallax layers -->
+  <div class="parallax-layer back" data-depth="0.12"></div>
+  <div class="parallax-layer mid"  data-depth="0.28"></div>
+  <div class="parallax-layer front" data-depth="0.55"></div>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">⚡</div>
+      <div>
+        <div class="title">CYBERPUNK • TENDER HUB</div>
+        <div class="subtitle">neon city × space • realtime motion</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input id="search" placeholder="Search tenders, org, id..." />
+      <select id="filter">
+        <option value="All">All</option>
+        <option>Submitted</option>
+        <option>Pending</option>
+        <option>Missing Docs</option>
+        <option>Draft</option>
+        <option>Awarded</option>
+      </select>
+      <button id="addBtn" class="btn"><i class="fa-solid fa-plus"></i> Add</button>
+      <button id="exportBtn" class="btn">Export</button>
+      <button id="darkToggle" class="btn">Dark</button>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section class="hero">
+    <h1 class="hero-neon">NEON GRID SKYLINE</h1>
+    <p class="hero-sub">Cyberpunk × Space — interactive tender dashboard</p>
+  </section>
+
+  <!-- main dashboard -->
+  <main class="main">
+    <aside class="stats">
+      <div class="stat"><div id="total">0</div><small>Total</small></div>
+      <div class="stat"><div id="submitted">0</div><small>Submitted</small></div>
+      <div class="stat"><div id="pending">0</div><small>Pending</small></div>
+      <div class="stat"><div id="awarded">0</div><small>Awarded</small></div>
+    </aside>
+
+    <section class="panel">
+      <div class="table-card">
+        <table class="tender-table">
+          <thead>
+            <tr><th>Tender</th><th>Status</th><th>Value</th><th>Deadline</th><th>Org</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="tenderBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">Made with ✦ Cyberpunk • <span id="buildTime"></span></footer>
+
+  <!-- modal add/edit -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 id="modalTitle">Add Tender</h3>
+      <form id="form">
+        <div class="row"><label>ID <input name="id" required /></label>
+        <label>Name <input name="name" required /></label></div>
+        <div class="row"><label>Org <input name="org" /></label>
+        <label>Status <select name="status"><option>Submitted</option><option>Pending</option><option>Missing Docs</option><option>Draft</option><option>Awarded</option></select></label></div>
+        <div class="row"><label>Value <input name="value" type="number" /></label>
+        <label>Deadline <input name="deadline" type="date" /></label></div>
+        <label>Note<textarea name="note"></textarea></label>
+        <div class="actions"><button type="button" id="cancel">Cancel</button><button type="submit" class="primary">Save</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- custom cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
